@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from twisted.application import service
 from twisted.internet import reactor
 from twisted.python import log, logfile
 from twisted.web import http, proxy
@@ -8,8 +7,6 @@ from twisted.web import http, proxy
 import optparse
 import os
 import re
-import sys
-import urllib
 
 class ProxyRequest(proxy.ProxyRequest):
     def requestReceived(self, command, path, version):
