@@ -40,8 +40,8 @@ class P3df():
         cls.clientPattern = {}
 
         path = os.path.abspath(__file__)
-        (dir, name) = (os.path.dirname(path), os.path.basename(path))
-        cls.startLogging('p3df.log', os.sep.join([dir, 'log']))
+        (dir, name) = os.path.split(path)
+        cls.startLogging('p3df.log', os.path.join(dir, 'data'))
 
         modulenames = []
         for name in os.listdir( os.sep.join([dir, 'plugin']) ):
