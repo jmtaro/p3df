@@ -3,28 +3,20 @@
 import os.path as P
 import model
 
-class Upgrader():
+class Updater():
     def __init__(self, conn):
-        self._current = self._get_current_ver()
         self._args = []
         self._conn = conn
-    def next(self, ver, fn_list):
-        if ver > self._current:
-            self._args.append([ver, fn_list])
+    def next(self, fn_list):
+        self._args.append(fn_list)
     def execute(self):
-        for (ver, fn_list) in self._args:
+        for fn_list in self._args:
             for fn in fn_list:
                 print '[call]' , fn.__name__
                 fn(self._conn)
-        self._set_current_ver(ver)
         self._conn.commit()
         self._conn.close()
         print '[done]' , P.basename(__file__)
-
-    def _get_current_ver(self):
-        return 0.0
-    def _set_current_ver(self, ver):
-        return
 
 def create_table_link_projection(conn):
     conn.execute('''create table if not exists link_projection(
@@ -51,12 +43,10 @@ def create_table_response_cache(conn):
         conn.execute('create index %s on response_cache(expire_timestamp)' % index_expire)
 
 def start():
-    u = Upgrader( model.connect() )
-    u.next(1.0, [
+    u = Updater( model.connect() )
+    u.next([
         create_table_link_projection,
         create_table_response_cache,
-    ])
-    u.next(2.0, [
     ])
     u.execute()
 
