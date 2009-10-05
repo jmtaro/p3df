@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import sqlite3
-import traceback
 import os.path as P
-
 import model
-
-DATA_DIR = P.join( P.dirname( P.abspath(__file__) ) , 'data')
 
 class Upgrader():
     def __init__(self, conn):
