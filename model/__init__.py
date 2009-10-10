@@ -4,7 +4,9 @@ import sqlite3
 import os.path as P
 
 def connect():
-    return sqlite3.connect(DATA_FILE)
+    conn = sqlite3.connect(DATA_FILE)
+    conn.row_factory = sqlite3.Row
+    return conn
 
 # private
 
