@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import time as t
-from twisted.python import log
+import __init__ as model
 
 def createInstance(conn):
     return Model(conn)
@@ -26,10 +26,7 @@ class Record():
             return ( 0, '' )
 # private
 
-def info(*args):
-    log.msg( "[LinkProjectionModel]%s" % ":".join( str(arg) for arg in args ) )
-def warn(*args):
-    info('[warning]', *args)
+info, warn, error = model.logging('[LinkProjectionModel]')
 
 class Model():
     def __init__(self, conn):

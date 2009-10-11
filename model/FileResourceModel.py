@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from twisted.python import log
+import __init__ as model
 
 def putRawData(filepath, data):
     try:
@@ -16,8 +16,5 @@ def putRawData(filepath, data):
 
 # private
 
-def info(*args):
-    log.msg( "[FileResourceModel]%s" % ":".join( str(arg) for arg in args ) )
-def warn(*args):
-    info('[warning]', *args)
+info, warn, error = model.logging('[FileResourceModel]')
 

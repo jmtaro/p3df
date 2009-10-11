@@ -23,6 +23,10 @@ def deleteExpired():
     finally:
         conn.close()
 
+def logging(key):
+    def msg(key): return lambda *args: log.msg( key + ":".join( str(i) for i in args ) )
+    return ( msg('[info]'), msg('[warning]'), msg('[error]') )
+
 # private
 
 DATA_DIR = P.join( P.dirname( P.dirname( P.abspath(__file__) ) ) , 'data')# ../data
