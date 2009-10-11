@@ -59,3 +59,11 @@ class Model():
         query = 'UPDATE response_cache SET %s WHERE url=:url ' % ','.join(ls)
         self._conn.execute(query, record.toDict())
 
+    def delete(self, expire=None):
+        query = 'DELETE FROM response_cache WHERE '
+        where, value = [], {}
+        if expire is not None:
+            where.append('expire_timestamp < :expire')
+            value['expire'] = expire
+        self._conn.execute(query + ' AND '.join(where), value)
+
